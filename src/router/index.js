@@ -8,8 +8,7 @@ const routes = [
   {
     path: '/',
     name: 'TutorialsList',
-    component: () => import('@/components/Home.vue'),
-    props: {tutorials}
+    component: () => import('@/components/Home.vue')
   },
   {
     path: '/add',

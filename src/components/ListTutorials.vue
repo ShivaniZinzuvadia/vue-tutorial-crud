@@ -9,9 +9,7 @@
         :key="index"
       >
         <b-card-header header-tag="header" class="p-1" role="tab">
-          <b-button block v-b-toggle="'accordion-' + index" variant="info">{{
-            tutorial.title
-          }}</b-button>
+          <b-button block v-b-toggle="'accordion-' + index" variant="info">{{tutorial.title}}</b-button>
         </b-card-header>
         <b-collapse
           :id="'accordion-' + index"
@@ -23,9 +21,9 @@
             <b-card-text>{{ tutorial.description }}</b-card-text>
           </b-card-body>
           <div class="p-1 text-right">
-            <b-button variant="primary" @click="showTutorial(index)"
-              >Show</b-button
-            >
+            <b-button variant="primary" @click="$emit('show',index)" class="mr-1">Show</b-button>
+            <b-button variant="danger" @click="deleteTutorialById(index)">Delete</b-button
+        >
           </div>
         </b-collapse>
       </b-card>
@@ -37,13 +35,18 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: "ListTutorials",
-  props: ["tutorials"],
   methods: {
-    showTutorial: function (tutorialId) {
-      this.$emit("show", tutorialId);
-    },
+    ...mapMutations([
+      'deleteTutorialById'
+    ])
   },
+  computed: {
+    ...mapGetters({
+      tutorials: 'allTutorials'
+    }),
+  }
 };
 </script>
